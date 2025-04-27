@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0%;
+            margin: 0%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 400;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background-color: rgb(29, 28, 28);
+        }
+
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+
+        .dropbtn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+
+        .dropdown-content a:hover {
+            background-color: black;
+            color: white;
+        }
+
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        .dropdown:hover .dropbtn {
+            background-color: black;
+            opacity: 0.6;
+        }
+
+        .box {
+            width: 300px;
+            height: 200px;
+            box-shadow: 0px 1px 10px black;
+            border-radius: 20px;
+            align-content: center;
+            text-align: center;
+        }
+
+        .box1 {
+            width: 300px;
+            align-content: end;
+            text-align: center;
+            height: 100px;
+
+            border-radius: 20px;
+        }
+
+        .box2 {
+            width: 300px;
+            height: 100px;
+
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        input {
+            width: 200px;
+            padding: 6px;
+            border-radius: 10px;
+            box-shadow: 0px 1px 10px black;
+            color: rgb(29, 28, 28);
+            border: none;
+            outline: none;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 30px;
+        }
+
+        #added {
+            display: block;
+            margin: 10px auto;
+            width: 100px;
+            padding: 6px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box1">
+            <h1>Guess the correct word</h1>
+            <div class="dropdown">
+                <button class="dropbtn">Available name</button>
+                <div class="dropdown-content">
+                    <a href="#" data-name="Olivia">Olivia</a>
+                    <a href="#" data-name="Leo">Leo</a>
+                    <a href="#" data-name="Ava">Ava</a>
+                    <a href="#" data-name="Sebastian">Sebastian</a>
+                    <a href="#" data-name="Mial">Mial</a>
+                    <a href="#" data-name="Noah">Noah</a>
+                    <a href="#" data-name="Isabella">Isabella</a>
+                    <a href="#" data-name="Elijah">Elijah</a>
+                    <a href="#" data-name="Grace">Grace</a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <h2 id="result"></h2>
+        </div>
+        <div class="box2">
+            <h3>Type the word in the input field</h3>
+            <input id="check" type="text" placeholder="type word">
+            <button id="added">Check it</button>
+            <h2 id="winner"></h2>
+        </div>
+    </div>
+
+    <script>
+        const name = ["Olivia", "Leo", "Ava", "Sebastian", "Mial", "Noah", "Isabella", "Elijah", "Grace"];
+        const result = document.getElementById("result");
+        const check = document.getElementById("check");
+
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                check.value = e.target.getAttribute('data-name');
+            });
+        });
+
+        document.getElementById("added").addEventListener("click", function () {
+            if (check.value === "") {
+                alert("First type the word");
+                return;
+            }
+            const randomName = name[Math.floor(Math.random() * name.length)];
+            result.textContent = randomName;
+
+            if (randomName === check.value) {
+                const winner = document.getElementById("winner");
+                winner.textContent = "Winner!";
+                check.value = "";
+            } else {
+                winner.textContent = "You lose, try again!";
+                check.value = "";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
